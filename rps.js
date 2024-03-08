@@ -1,5 +1,5 @@
 function getComputerChoice() {
-    const choices = ["Rock", "Paper", "Scissors"];
+    const choices = ["rock", "paper", "scissors"];
     let rnd = Math.floor(Math.random() * choices.length);
     return choices[rnd];
 }
@@ -58,21 +58,20 @@ function playRound(playerSelection, computerSelection) {
     }
 }
 
-function playGame() {
+function playGame(e) {
     // player choice
-    let playerInput = prompt("what's your play?", "rock, paper or scissors");
-    let playerChoice = playerInput.toLowerCase();
+    let playerChoice = e.target.id;
+    console.log(`player choose ${playerChoice}`);
     // computer choice
     let computerChoice = getComputerChoice();
     console.log(`computer choose ${computerChoice}`);
     // judge the winner
     let result = playRound(playerChoice, computerChoice);
-    return result;
+    output.textContent = result;
 }
 
-let score = 0;
-let n = 5;
-for (let index = 0; index < n; index++) {
-    score += playGame();
-}
-console.log(`your final score is ${score}`);
+document.querySelectorAll(".selection").forEach(
+    (element) => element.addEventListener("click", playGame)
+);
+
+const output = document.querySelector("p.output");
